@@ -544,51 +544,138 @@ const SkillsSection = () => {
     </div>
   );
 };
+
 const ContactSection = () => {
+  const form = useRef();
+  const [formStatus, setFormStatus] = useState({
+    submitting: false,
+    success: false,
+    error: null
+  });
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setFormStatus({ submitting: true, success: false, error: null });
+
+    // Looking at your template, the main issue is that we need to set:
+    // 1. {{email}} - YOUR email address - as the TO email (where messages are sent)
+    // 2. {{from_email}} - The SENDER'S email address - for the reply-to field
+    
+    const templateParams = {
+      // For recipient (you)
+      email: "avinashbhavancheekar29@gmail.com", // This is YOUR email where you want to receive messages
+      
+      // From the sender (form submitter)
+      from_name: form.current.user_name.value,
+      from_email: form.current.user_email.value, // The sender's email for you to reply to
+      name: form.current.user_name.value,
+      
+      // Message content
+      message: form.current.message.value,
+      
+      // Reply-to field (important for you to be able to reply to the sender)
+      reply_to: form.current.user_email.value
+    };
+
+    // Use the direct send method for better control of parameters
+    emailjs.send(
+      process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      templateParams,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+    ).then(
+      (result) => {
+        console.log('Email sent successfully:', result.text);
+        setFormStatus({ submitting: false, success: true, error: null });
+        form.current.reset();
+      },
+      (error) => {
+        console.error('Failed to send email:', error.text);
+        setFormStatus({ submitting: false, success: false, error: error.text });
+      }
+    );
+  };
+
   return (
     <div>
       <h2 className="text-3xl font-bold mb-12 relative">
         <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Contact Me</span>
         <span className="block w-20 h-1 bg-indigo-600 mt-4"></span>
       </h2>
-      
+
       <div className="max-w-3xl mx-auto bg-gray-800 bg-opacity-50 p-8 rounded-lg border border-gray-700">
-        <form className="space-y-6">
+        {formStatus.success ? (
+          <div className="bg-green-500 bg-opacity-20 border border-green-500 text-green-300 p-4 rounded-md mb-6">
+            Message sent successfully! I'll get back to you soon.
+          </div>
+        ) : null}
+        
+        {formStatus.error ? (
+          <div className="bg-red-500 bg-opacity-20 border border-red-500 text-red-300 p-4 rounded-md mb-6">
+            Error: {formStatus.error}
+          </div>
+        ) : null}
+        
+        <form ref={form} onSubmit={sendEmail} className="space-y-6">
           <div>
+            <label htmlFor="user_name" className="block text-gray-300 mb-2">Your Name</label>
             <input
               type="text"
-              placeholder="Your Name"
+              id="user_name"
+              name="user_name"
+              placeholder="John Doe"
               className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white"
               required
             />
           </div>
           
           <div>
+            <label htmlFor="user_email" className="block text-gray-300 mb-2">Your Email</label>
             <input
               type="email"
-              placeholder="Your Email"
+              id="user_email"
+              name="user_email"
+              placeholder="your.email@example.com"
               className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white"
               required
             />
           </div>
           
           <div>
+            <label htmlFor="message" className="block text-gray-300 mb-2">Your Message</label>
             <textarea
-              placeholder="Your Message"
+              id="message"
+              name="message"
+              placeholder="Hello, I'd like to discuss a potential opportunity..."
               rows="6"
               className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white"
               required
             ></textarea>
           </div>
           
-          <div>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-md transition-all flex items-center"
-            >
-              Send Message
-            </button>
+          {/* Hidden fields to ensure proper routing */}
+          <input type="hidden" name="email" value="avinashbhavancheekar29@gmail.com" />
+          <input type="hidden" name="from_email" id="from_email" value="" />
+          
+          {/* JavaScript to set the from_email hidden field value from user_email */}
+          <div style={{ display: 'none' }}>
+            <script type="text/javascript">
+              {`
+              // Update from_email field when user_email changes
+              document.getElementById('user_email').addEventListener('change', function(e) {
+                document.getElementById('from_email').value = e.target.value;
+              });
+              `}
+            </script>
           </div>
+          
+          <button
+            type="submit"
+            disabled={formStatus.submitting}
+            className={`bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-md transition-all flex items-center ${formStatus.submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+          >
+            {formStatus.submitting ? 'Sending...' : 'Send Message'}
+          </button>
         </form>
       </div>
     </div>
