@@ -188,7 +188,6 @@ const AboutSection = ({ showSkills, setShowSkills }) => {
           Specializing in building scalable applications with cutting-edge technologies. 
           My expertise spans across front-end and back-end development, with a focus on 
           creating intuitive, high-performance solutions that solve real-world problems.
-          Based in the New York Metropolitan Area.
         </p>
         <div className="flex flex-wrap gap-4">
           <a href="https://www.linkedin.com/in/avinash-bhavancheekar/" target="_blank" rel="noopener noreferrer" className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md font-medium transition-all">
