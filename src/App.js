@@ -73,7 +73,7 @@ const App = () => {
         {/* Footer */}
         <footer className="bg-gray-800 py-8 px-6 md:px-10">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Avinash Bhavancheekar. All rights reserved.</p>
+            <p className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Avinash Bhavancheekar</p>
             <div className="flex space-x-6">
               <a href="https://www.linkedin.com/in/avinash-bhavancheekar/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-500">
                 LinkedIn
