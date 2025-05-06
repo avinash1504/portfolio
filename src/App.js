@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Home, Code, BookOpen, Award, Briefcase, FileText, MessageSquare, ArrowRight } from 'lucide-react';
+import emailjs from 'emailjs-com';
+//import ContactSection from 'ContactSection'; 
 
 // Main App Component
 const App = () => {
@@ -545,6 +547,8 @@ const SkillsSection = () => {
   );
 };
 
+
+// Contact Section Component with hardcoded EmailJS configuration
 const ContactSection = () => {
   const form = useRef();
   const [formStatus, setFormStatus] = useState({
@@ -553,14 +557,17 @@ const ContactSection = () => {
     error: null
   });
 
+  const emailjsConfig = {
+    serviceId: 'service_k3fb6ur',
+    templateId: 'template_0kdnq0j',
+    publicKey: 'siQBFr8Ha-wFXD0ei'
+  };
+
   const sendEmail = (e) => {
     e.preventDefault();
     setFormStatus({ submitting: true, success: false, error: null });
 
-    // Looking at your template, the main issue is that we need to set:
-    // 1. {{email}} - YOUR email address - as the TO email (where messages are sent)
-    // 2. {{from_email}} - The SENDER'S email address - for the reply-to field
-    
+    // Create template parameters
     const templateParams = {
       // For recipient (you)
       email: "avinashbhavancheekar29@gmail.com", // This is YOUR email where you want to receive messages
@@ -577,12 +584,12 @@ const ContactSection = () => {
       reply_to: form.current.user_email.value
     };
 
-    // Use the direct send method for better control of parameters
+    // Use the direct send method with hardcoded config
     emailjs.send(
-      process.env.REACT_APP_EMAILJS_SERVICE_ID,
-      process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      emailjsConfig.serviceId,
+      emailjsConfig.templateId,
       templateParams,
-      process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      emailjsConfig.publicKey
     ).then(
       (result) => {
         console.log('Email sent successfully:', result.text);
@@ -595,6 +602,7 @@ const ContactSection = () => {
       }
     );
   };
+
 
   return (
     <div>
