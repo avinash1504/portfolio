@@ -267,11 +267,10 @@ const ExperienceSection = () => {
       location: "Remote",
       period: "April 2025 - Present",
       description: [
-        "Led full-stack development for UGenome's MVP, building scalable components with React, Node.js, Python, and FastAPI that accelerated product readiness by 30% and supported secure data integration for personalized user insights",
-        "Designed and optimized MySQL and MongoDB databases while implementing conditional onboarding flows that streamlined data submission and enhanced retrieval speed for complex genomic information",
-        "Replaced legacy third-party APIs with custom service integrations and RESTful endpoints that transformed genomic research into functional tools through cross-functional collaboration",
-        "Built and tested services to process, transform, and store complex JSON data, maintaining seamless frontend-backend communication for end-to-end functionality",
-        "Conducted rigorous debugging, unit testing, and performance optimization, reducing critical bugs by 40% while maintaining high code quality through peer reviews and technical documentation"
+        "Built and maintained a scalable React + TypeScript frontend for complex genomic analysis workflows resulting in a scalable, user-friendly platform that improved engagement and decision-making",
+        "Created a Python and FastAPI backend with an object-oriented architecture to integrate Method, Spinwheel, and Quiltt’s financial APIs and collecting user data, transaction histories, and credit scores, enabling in-depth analysis",
+        "Processed the combined financial data to devise personalized and streamlined strategies aimed at debt elimination and credit score improvement for users",
+        "Implemented unit testing alongside developing powerful API endpoints with FastAPI as well as containerizing the entire application with Docker, ensuring effortless integration, scalability of the React frontend and PostgreSQL database"
       ]
     },
     {
