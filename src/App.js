@@ -264,7 +264,7 @@ const ExperienceSection = () => {
     {
       title: "Software Engineer",
       company: "UGenome AI",
-      location: "Remote",
+      location: "Green Valley, AZ",
       period: "April 2025 - Present",
       description: [
         "Built and maintained a scalable React + TypeScript frontend for complex genomic analysis workflows resulting in a scalable, user-friendly platform that improved engagement and decision-making",
