@@ -108,7 +108,7 @@ const FloatingNavLinks = ({ activeSection, setActiveSection }) => {
     { id: 'projects', icon: <Code size={24} /> },
     { id: 'skills', icon: <Award size={24} /> },
     { id: 'contact', icon: <MessageSquare size={24} /> },
-    { id: 'resume', icon: <FileText size={24} />, isExternal: true, link: "https://drive.google.com/file/d/1bJJK0c-LXdYsdxQh9x_v20w5ldbqKPnR/view?usp=sharing" }
+    { id: 'resume', icon: <FileText size={24} />, isExternal: true, link: "/Avinash Bhavancheekar_SDE.pdf" }
   ];
 
   const scrollToSection = (e, id) => {
